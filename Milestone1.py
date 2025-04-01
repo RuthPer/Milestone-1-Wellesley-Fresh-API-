@@ -44,9 +44,6 @@ def get_menu(date, locID, mealID):
 
 get_menu("4/1/2025", 96, 148)
 
-df=pd.read_csv('wellesley-dining.csv')
-
-print(df.head(3))
 
 def write_menus(csvfile, date):
     with open(csvfile, 'r') as inFile:
