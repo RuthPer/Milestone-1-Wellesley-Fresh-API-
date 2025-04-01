@@ -59,6 +59,9 @@ def write_menus(csvfile, date):
                 json.dump(data, outFile)
             time.sleep(2)
 
+day = datetime.datetime(2025, 4, 1)
+write_menus('wellesley-dining.csv', day)
+
 filedir = [file for file in os.listdir() if '2025' in file]
 filedir
 
