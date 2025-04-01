@@ -3,6 +3,7 @@
 import requests
 import json
 import csv
+import pandas as pd
 
 locations = ['Bao', 'Bates', 'StoneD', 'Tower']
 meals = ['Breakfast', 'Lunch', 'Dinner']
@@ -37,3 +38,9 @@ def get_menu(date, locID, mealID):
     response = requests.get(baseURL, params=params)
     data = response.json()
     return data
+
+get_menu("4/1/2025", 96, 148)
+
+df=pd.read_csv('wellesley-dining.csv')
+
+print(df.head(3))
