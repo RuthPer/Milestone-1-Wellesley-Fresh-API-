@@ -70,15 +70,15 @@ def write_menus(csvfile, date):
             time.sleep(2)
 
 day = datetime.datetime(2025, 4, 1)
-write_menus('wellesley-dining.csv', day)
+# write_menus('wellesley-dining.csv', day)
 
 filedir = [file for file in os.listdir() if '2025' in file]
 filedir
 
-for file in filedir:
-    with open(file, 'r') as inFile:
-        rows = json.load(inFile)
-        print(f"{len(rows)} rows in {file}")
+# for file in filedir:
+#     with open(file, 'r') as inFile:
+#         rows = json.load(inFile)
+#         print(f"{len(rows)} rows in {file}")
 
 currentdf = pd.DataFrame()
 
