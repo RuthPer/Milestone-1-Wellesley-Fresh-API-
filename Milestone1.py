@@ -76,3 +76,7 @@ for file in filedir:
     newdf['mealType'] = file.split('-')[1]
     currentdf = pd.concat([currentdf, newdf], ignore_index=True)
     print(f"Appended {file}. Now size is ({len(currentdf)}, {len(currentdf.columns)})")
+
+
+# Streamlit part
+
