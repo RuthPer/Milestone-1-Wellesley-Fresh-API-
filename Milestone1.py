@@ -9,6 +9,7 @@ import pandas as pd
 import datetime
 import time
 import os
+import streamlitCode
 
 
 # creating lists of locations and meals
