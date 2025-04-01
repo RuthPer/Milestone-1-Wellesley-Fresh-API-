@@ -4,6 +4,9 @@ import requests
 import json
 import csv
 import pandas as pd
+import datetime
+import time
+import os
 
 locations = ['Bao', 'Bates', 'StoneD', 'Tower']
 meals = ['Breakfast', 'Lunch', 'Dinner']
@@ -44,3 +47,32 @@ get_menu("4/1/2025", 96, 148)
 df=pd.read_csv('wellesley-dining.csv')
 
 print(df.head(3))
+
+def write_menus(csvfile, date):
+    with open(csvfile, 'r') as inFile:
+        reader = csv.DictReader(inFile)
+        for row in reader:
+            day = date.strftime("%m-%d-%Y")
+            data = get_menu(date, row['locationID'], row['mealID'])
+            fname = f"{row['location']}-{row['meal']}-{day}.json"
+            with open(fname, 'w') as outFile:
+                json.dump(data, outFile)
+            time.sleep(2)
+
+filedir = [file for file in os.listdir() if '2025' in file]
+filedir
+
+for file in filedir:
+    with open(file, 'r') as inFile:
+        rows = json.load(inFile)
+        print(f"{len(rows)} rows in {file}")
+
+currentdf = pd.DataFrame()
+
+count = 0
+for file in filedir:
+    newdf = pd.read_json(file)
+    newdf['diningHall'] = file.split('-')[0]
+    newdf['mealType'] = file.split('-')[1]
+    currentdf = pd.concat([currentdf, newdf], ignore_index=True)
+    print(f"Appended {file}. Now size is ({len(currentdf)}, {len(currentdf.columns)})")
