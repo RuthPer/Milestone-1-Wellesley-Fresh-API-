@@ -61,12 +61,12 @@ get_menu("4/1/2025", 96, 148)
 def write_menus(csvfile, date):
     with open(csvfile, 'r') as inFile:
         reader = csv.DictReader(inFile)
-        for row in reader:
-            day = date.strftime("%m-%d-%Y")
-            data = get_menu(date, row['locationID'], row['mealID'])
-            fname = f"{row['location']}-{row['meal']}-{day}.json"
-            with open(fname, 'w') as outFile:
-                json.dump(data, outFile)
+         # for row in reader: 
+        day = date.strftime("%m-%d-%Y")
+        data = get_menu(date, row['locationID'], row['mealID'])
+        fname = f"{row['location']}-{row['meal']}-{day}.json"
+        with open(fname, 'w') as outFile:
+            json.dump(data, outFile)
             time.sleep(2)
 
 day = datetime.datetime(2025, 4, 1)
