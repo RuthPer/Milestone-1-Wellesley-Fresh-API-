@@ -1,6 +1,6 @@
 import streamlit as st
 import datetime
-import Milestone1
+import Milestone1 as m1
 
 st.title("Food App-Milestone 1")
 
@@ -12,10 +12,9 @@ st.write("You Selected", date)
 
 ### LOCATION ###
 
-# dictionary with a dining hall's specific meal ids
-mealIDs = {'Bao': [96, {'Breakfast': 148, 'Lunch': 149, 'Dinner': 312}], 
+locations = {'Lulu': [96, {'Breakfast': 148, 'Lunch': 149, 'Dinner': 312}], 
          'Bates': [95, {'Breakfast': 145, 'Lunch': 146, 'Dinner': 311}],
-         'StoneD': [131, {'Breakfast': 261, 'Lunch': 262, 'Dinner': 263}], 
+         'Stone Davis': [131, {'Breakfast': 261, 'Lunch': 262, 'Dinner': 263}], 
          'Tower': [97, {'Breakfast': 153, 'Lunch': 154, 'Dinner': 310}]
          }
 
@@ -34,3 +33,10 @@ chosenMeal = st.selectbox(
     ("Breakfast", "Lunch","Dinner")
 )
 st.write("You Selected", chosenMeal)
+
+printOutput = st.button("generate menu")
+
+if printOutput:
+    output = m1.get_menu(date, locations[chosenLocation][0],locations[chosenLocation][1][chosenMeal])
+    data = m1.createDf(output)
+    st.dataframe(data)
