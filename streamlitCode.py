@@ -6,8 +6,9 @@ import pandas as pd
 st.title("Food App-Milestone 1")
 
 ### DATE ###
-st.write("Date Selection")
-date = st.date_input("Meal Option date?", datetime.date(2025, 4, 1))
+dateCon = st.container(border=True)
+dateCon.write("Date Selection")
+date = dateCon.date_input("Meal Option date?", datetime.date(2025, 4, 1))
 st.write("You Selected", date)
 
 
@@ -18,9 +19,9 @@ locations = {'Lulu': [96, {'Breakfast': 148, 'Lunch': 149, 'Dinner': 312}],
          'Stone Davis': [131, {'Breakfast': 261, 'Lunch': 262, 'Dinner': 263}], 
          'Tower': [97, {'Breakfast': 153, 'Lunch': 154, 'Dinner': 310}]
          }
-
-st.write("Location Selection")
-chosenLocation = st.selectbox(
+locCon = st.container(border=True)
+locCon.write("Location Selection")
+chosenLocation = locCon.selectbox(
     "Please select a dining hall:",
     ("Bates", "Lulu","Stone Davis","Tower")
 )
@@ -28,14 +29,16 @@ st.write("You Selected", chosenLocation)
 
 
 ### MEAL TYPE ###
-st.write("Meal type Selection")
-chosenMeal = st.selectbox(
+mealCon = st.container(border=True)
+mealCon.write("Meal Time Selection")
+chosenMeal = mealCon.selectbox(
     "Please select a meal time:",
     ("Breakfast", "Lunch","Dinner")
 )
 st.write("You Selected", chosenMeal)
 
-userInput = st.text_input("What do you wanna eat?")
+searchCon = st.container(border=True)
+userInput = searchCon.text_input("What do you wanna eat?")
 printOutput = 0
 if userInput:
 
@@ -44,8 +47,18 @@ if userInput:
     data = m1.createDf(output)[["name","description"]].drop_duplicates()
     search = data["name"].str.contains(userInput, case=False, na=False)
 
-
-    printOutput = st.button("generate menu")
+    printOutput = st.button("Generate menu")
 
 if printOutput:
-    st.dataframe(data[search])
+    if data[search].empty:
+        searchCon.write("Not a Meal Option!")
+    else:
+        st.markdown(
+            """
+                div[data-testid="stFullScreenFrame"] {
+                    border: 1px solid red;
+                }
+            """,
+            unsafe_allow_html=True
+        )
+        searchCon.dataframe(data[search], hide_index=True)

@@ -56,8 +56,6 @@ def get_menu(date, locID, mealID):
     return data
 
 def createDf(jsonObject):
-    currentdf = pd.DataFrame()
     newdf = pd.json_normalize(jsonObject)
-    
-    currentdf = pd.concat([currentdf, newdf], ignore_index=True)
-    return currentdf
+
+    return newdf
