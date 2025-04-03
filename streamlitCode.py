@@ -53,12 +53,4 @@ if printOutput:
     if data[search].empty:
         searchCon.write("Not a Meal Option!")
     else:
-        st.markdown(
-            """
-                div[data-testid="stFullScreenFrame"] {
-                    border: 1px solid red;
-                }
-            """,
-            unsafe_allow_html=True
-        )
         searchCon.dataframe(data[search], hide_index=True)
