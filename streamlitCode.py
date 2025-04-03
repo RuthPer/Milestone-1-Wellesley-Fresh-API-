@@ -1,6 +1,7 @@
 import streamlit as st
 import datetime
 import Milestone1 as m1
+import pandas as pd
 
 st.title("Food App-Milestone 1")
 
@@ -34,9 +35,17 @@ chosenMeal = st.selectbox(
 )
 st.write("You Selected", chosenMeal)
 
-printOutput = st.button("generate menu")
+userInput = st.text_input("What do you wanna eat?")
+printOutput = 0
+if userInput:
+
+    output = m1.get_menu(date, locations[chosenLocation][0],locations[chosenLocation][1][chosenMeal])
+
+    data = m1.createDf(output)[["name","description"]].drop_duplicates()
+    search = data["name"].str.contains(userInput, case=False, na=False)
+
+
+    printOutput = st.button("generate menu")
 
 if printOutput:
-    output = m1.get_menu(date, locations[chosenLocation][0],locations[chosenLocation][1][chosenMeal])
-    data = m1.createDf(output)
-    st.dataframe(data)
+    st.dataframe(data[search])
